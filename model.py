@@ -14,8 +14,8 @@
 # ==============================================================================
 
 import random
-import losses
-from net import *
+from . import losses
+from .net import *
 import numpy as np
 
 

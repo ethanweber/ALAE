@@ -20,9 +20,9 @@ from torch.nn import functional as F
 from torch.nn import init
 from torch.nn.parameter import Parameter
 import numpy as np
-import lreq as ln
+from . import lreq as ln
 import math
-from registry import *
+from .registry import *
 
 
 def pixel_norm(x, epsilon=1e-8):
