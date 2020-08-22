@@ -27,7 +27,7 @@ class LODDriver:
             self.lod_2_batch = cfg.TRAIN.LOD_2_BATCH_4GPU
         if world_size == 2:
             self.lod_2_batch = cfg.TRAIN.LOD_2_BATCH_2GPU
-        if world_size == 1:
+        if world_size == 0 or world_size == 1:
             self.lod_2_batch = cfg.TRAIN.LOD_2_BATCH_1GPU
 
         self.world_size = world_size
@@ -57,7 +57,10 @@ class LODDriver:
         return self.dataset_size
 
     def get_per_GPU_batch_size(self):
-        return self.get_batch_size() // self.world_size
+        if self.world_size == 0: # NOTE(ethan): I added this
+            return self.get_batch_size()
+        else:
+            return self.get_batch_size() // self.world_size
 
     def get_blend_factor(self):
         if self.cfg.TRAIN.EPOCHS_PER_LOD == 0:
